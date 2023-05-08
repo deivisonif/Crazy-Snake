@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 from sys import exit
-
+from random import randint
 
 pygame.init()
 
@@ -9,6 +9,11 @@ largura = 640
 altura = 480
 x = largura/2
 y = altura/2
+x_azul = randint(40, 600)
+y_azul = randint(50, 430)
+fonte = pygame.font.SysFont("Arial", 40, True, False)
+pontos = 0
+#Fim da declaração de variáveis
 
 tela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption("Crazy Snake")
@@ -17,6 +22,8 @@ relogio = pygame.time.Clock()
 while True:
     relogio.tick(100)
     tela.fill((255,255,255))
+    mensagem = f"Pontos: {pontos}"
+    texto_formatado = fonte.render(mensagem, True, (255, 215, 0))
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -39,7 +46,13 @@ while True:
         y = y - 5
     if pygame.key.get_pressed()[K_s]:
         y = y + 5
-    pygame.draw.rect(tela, (255,0,0), (x,y,40,50))
-    pygame.draw.rect(tela, (0, 0, 255), (200, 300, 40, 50))
+    ret_verde = pygame.draw.rect(tela, (0,255,0), (x,y,40,50))
+    ret_azul = pygame.draw.rect(tela, (0, 0, 255), (x_azul, y_azul, 40, 50))
+
+    if ret_verde.colliderect(ret_azul):
+        x_azul = randint(40, 600)
+        y_azul = randint(50, 430)
+        pontos = pontos + 1
+    tela.blit(texto_formatado, (420, 40))
 
     pygame.display.update()
