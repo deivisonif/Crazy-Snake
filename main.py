@@ -5,6 +5,8 @@ from random import randint
 
 pygame.init()
 
+#Inicio da declaração de variáveis:
+
 largura = 640
 altura = 480
 x = largura/2
@@ -13,7 +15,7 @@ x_azul = randint(40, 600)
 y_azul = randint(50, 430)
 fonte = pygame.font.SysFont("Arial", 40, True, False)
 pontos = 0
-#Fim da declaração de variáveis
+#Fim da declaração de variáveis.
 
 tela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption("Crazy Snake")
@@ -29,22 +31,22 @@ while True:
             pygame.quit()
             exit()
         if event.type == KEYDOWN:
-            if event.key == K_a:
+            if event.key == K_LEFT:
                 x = x - 20
-            if event.key == K_d:
+            if event.key == K_RIGHT:
                 x = x + 20
-            if event.key == K_w:
+            if event.key == K_UP:
                 y = y - 20
-            if event.key == K_s:
+            if event.key == K_DOWN:
                 y = y + 20
 
-    if pygame.key.get_pressed()[K_a]:
+    if pygame.key.get_pressed()[K_LEFT]:
         x = x - 5
-    if pygame.key.get_pressed()[K_d]:
+    if pygame.key.get_pressed()[K_RIGHT]:
         x = x + 5
-    if pygame.key.get_pressed()[K_w]:
+    if pygame.key.get_pressed()[K_UP]:
         y = y - 5
-    if pygame.key.get_pressed()[K_s]:
+    if pygame.key.get_pressed()[K_DOWN]:
         y = y + 5
     ret_verde = pygame.draw.rect(tela, (0,255,0), (x,y,40,50))
     ret_azul = pygame.draw.rect(tela, (0, 0, 255), (x_azul, y_azul, 40, 50))
