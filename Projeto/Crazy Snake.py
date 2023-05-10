@@ -16,11 +16,14 @@ x_maca = randint(40, 600)
 y_maca = randint(50, 430)
 fonte = pygame.font.SysFont("Arial", 40, True, False)
 pontos = 0
-pygame.mixer.music.set_volume(1)
+pygame.mixer.music.set_volume(0.2)
 musicafundo = pygame.mixer.music.load("smw_castle_clear.wav")
 pygame.mixer.music.play(-1)
 barulhocoli = pygame.mixer.Sound("smw_jump.wav")
-imagem_fundo = pygame.image.load('imagens/imagem_fundo.jpg')
+imagem_fundo = pygame.image.load('imagem_fundo.jpg')
+comprimentoini = 5
+xcontrole = 20
+ycontrole = 0
 
 #Fim da declaração de variáveis.
 
@@ -36,29 +39,29 @@ while True:
     tela.fill((255,255,255))
     tela.blit(imagem_fundo, (0, 0))
     mensagem = f"Pontos: {pontos}"
-    texto_formatado = fonte.render(mensagem, True, (255, 215, 0))
+    texto_formatado = fonte.render(mensagem, True, (255, 255, 255))
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             exit()
-        #if event.type == KEYDOWN:
+        if event.type == KEYDOWN:
             if event.key == K_LEFT:
-                x = x - 20
+                xcontrole = -20
+                ycontrole = 0
             if event.key == K_RIGHT:
-                x = x + 20
+                xcontrole = 20
+                ycontrole = 0
             if event.key == K_UP:
-                y = y - 20
+                ycontrole = -20 
+                xcontrole = 0
             if event.key == K_DOWN:
-                y = y + 20
+                ycontrole = 20
+                xcontrole = 0
+    x_cobra = x_cobra + (xcontrole/11)
+    y_cobra = y_cobra + (ycontrole/11)
+    x_cobra = x_cobra + (xcontrole/11)
+    y_cobra = y_cobra + (ycontrole/11)
 
-    if pygame.key.get_pressed()[K_LEFT]:
-        x_cobra = x_cobra - 5
-    if pygame.key.get_pressed()[K_RIGHT]:
-        x_cobra = x_cobra + 5
-    if pygame.key.get_pressed()[K_UP]:
-        y_cobra = y_cobra - 5
-    if pygame.key.get_pressed()[K_DOWN]:
-        y_cobra = y_cobra + 5
     cobra = pygame.draw.rect(tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))
     maca = pygame.draw.rect(tela, (255, 0, 0), (x_maca, y_maca, 20, 20))
 
@@ -67,12 +70,17 @@ while True:
         y_maca = randint(50, 430)
         pontos = pontos + 1
         barulhocoli.play()
+        comprimentoini = comprimentoini + 2
     
 
     lista_cabeca = []
     lista_cabeca.append(x_cobra)
     lista_cabeca.append(y_cobra)
     lista_cobra.append(lista_cabeca)
+    if len (lista_cobra) > comprimentoini:
+
+        del lista_cobra[0]
+           
 
     aumentacobra (lista_cobra)
     tela.blit(texto_formatado, (420, 40))
