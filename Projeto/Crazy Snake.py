@@ -22,6 +22,7 @@ pygame.mixer.music.play(-1)
 barulhocoli = pygame.mixer.Sound("smw_jump.wav")
 imagem_fundo = pygame.image.load('imagem_fundo.jpg')
 comprimentoini = 5
+velocidade = 10
 xcontrole = 20
 ycontrole = 0
 
@@ -46,21 +47,33 @@ while True:
             exit()
         if event.type == KEYDOWN:
             if event.key == K_LEFT:
-                xcontrole = -20
-                ycontrole = 0
+                if xcontrole == velocidade:
+                    pass
+                else:
+                    xcontrole = -velocidade
+                    ycontrole = 0
             if event.key == K_RIGHT:
-                xcontrole = 20
-                ycontrole = 0
+                if xcontrole == -velocidade:
+                    pass
+                else:
+                    xcontrole = velocidade
+                    ycontrole = 0
             if event.key == K_UP:
-                ycontrole = -20 
-                xcontrole = 0
+                if ycontrole == velocidade:
+                    pass
+                else:
+                    ycontrole = -velocidade
+                    xcontrole = 0
             if event.key == K_DOWN:
-                ycontrole = 20
-                xcontrole = 0
-    x_cobra = x_cobra + (xcontrole/11)
-    y_cobra = y_cobra + (ycontrole/11)
-    x_cobra = x_cobra + (xcontrole/11)
-    y_cobra = y_cobra + (ycontrole/11)
+                if ycontrole == -velocidade:
+                    pass
+                else:
+                    ycontrole = velocidade
+                    xcontrole = 0
+    x_cobra = x_cobra + (xcontrole/10)
+    y_cobra = y_cobra + (ycontrole/10)
+    x_cobra = x_cobra + (xcontrole/10)
+    y_cobra = y_cobra + (ycontrole/10)
 
     cobra = pygame.draw.rect(tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))
     maca = pygame.draw.rect(tela, (255, 0, 0), (x_maca, y_maca, 20, 20))
