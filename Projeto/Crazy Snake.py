@@ -16,6 +16,9 @@ x_maca = randint(40, 600)
 y_maca = randint(50, 430)
 fonte = pygame.font.SysFont("Arial", 40, True, False)
 pontos = 0
+x_bloco_preto = randint(40, 600)
+y_bloco_preto = randint(50, 430)
+bloco_preto = pygame.Rect(x_bloco_preto, y_bloco_preto, 20, 20)  # Adicione essa linha
 pygame.mixer.music.set_volume(0.2)
 musicafundo = pygame.mixer.music.load("smw_castle_clear.wav")
 pygame.mixer.music.play(-1)
@@ -26,6 +29,7 @@ velocidade = 10
 xcontrole = 20
 ycontrole = 0
 
+
 #Fim da declaração de variáveis.
 
 tela = pygame.display.set_mode((largura, altura))
@@ -35,7 +39,10 @@ lista_cobra = []
 def aumentacobra(lista_cobra):
     for xey in lista_cobra:
         pygame.draw.rect(tela, (0, 255, 0), (xey[0], xey[1], 20, 20))
+
 while True:
+    tela.blit(imagem_fundo, (0, 0))
+    bloco_preto = pygame.draw.rect(tela, (0, 0, 0), bloco_preto)
     relogio.tick(100)
     tela.fill((255,255,255))
     tela.blit(imagem_fundo, (0, 0))
@@ -77,13 +84,21 @@ while True:
 
     cobra = pygame.draw.rect(tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))
     maca = pygame.draw.rect(tela, (255, 0, 0), (x_maca, y_maca, 20, 20))
-
+    bloco = pygame.draw.rect(tela, (0, 0, 0), bloco_preto)
     if cobra.colliderect(maca):
         x_maca = randint(40, 600)
         y_maca = randint(50, 430)
         pontos = pontos + 1
         barulhocoli.play()
         comprimentoini = comprimentoini + 2
+
+    if cobra.colliderect(bloco):
+        x_bloco_preto = randint(40, 600)
+        y_bloco_preto = randint(50, 430)
+        bloco_preto = pygame.Rect(x_bloco_preto, y_bloco_preto, 20, 20)
+        pygame.quit()
+        exit()
+
     
 
     lista_cabeca = []
