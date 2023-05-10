@@ -82,15 +82,20 @@ while True:
     x_cobra = x_cobra + (xcontrole/10)
     y_cobra = y_cobra + (ycontrole/10)
 
+    if x_cobra < 0 or x_cobra > largura or y_cobra < 0 or y_cobra > altura:
+        pygame.quit()
+        exit()
+
     cobra = pygame.draw.rect(tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))
     maca = pygame.draw.rect(tela, (255, 0, 0), (x_maca, y_maca, 20, 20))
     bloco = pygame.draw.rect(tela, (0, 0, 0), bloco_preto)
+
     if cobra.colliderect(maca):
         x_maca = randint(40, 600)
         y_maca = randint(50, 430)
         pontos = pontos + 1
         barulhocoli.play()
-        comprimentoini = comprimentoini + 2
+        comprimentoini = comprimentoini + 10
 
     if cobra.colliderect(bloco):
         x_bloco_preto = randint(40, 600)
@@ -99,7 +104,6 @@ while True:
         pygame.quit()
         exit()
 
-    
 
     lista_cabeca = []
     lista_cabeca.append(x_cobra)
