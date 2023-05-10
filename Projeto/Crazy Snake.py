@@ -20,6 +20,7 @@ pygame.mixer.music.set_volume(1)
 musicafundo = pygame.mixer.music.load("smw_castle_clear.wav")
 pygame.mixer.music.play(-1)
 barulhocoli = pygame.mixer.Sound("smw_jump.wav")
+imagem_fundo = pygame.image.load('imagens/imagem_fundo.jpg')
 
 #Fim da declaração de variáveis.
 
@@ -33,6 +34,7 @@ def aumentacobra(lista_cobra):
 while True:
     relogio.tick(100)
     tela.fill((255,255,255))
+    tela.blit(imagem_fundo, (0, 0))
     mensagem = f"Pontos: {pontos}"
     texto_formatado = fonte.render(mensagem, True, (255, 215, 0))
     for event in pygame.event.get():
