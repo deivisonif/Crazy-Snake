@@ -10,6 +10,7 @@ pygame.init()
 
 largura = 640
 altura = 480
+
 x_cobra = largura/2
 y_cobra = altura/2
 x_maca = randint(40, 600)
@@ -37,15 +38,6 @@ fundo_imagem2 = pygame.image.load("Crazy SnakeLost.png")
 tela = pygame.display.set_mode((largura, altura),)
 pygame.display.set_caption("Crazy Snake")
 
-#definir texto da tela de start
-small_font = pygame.font.Font(None, 30)
-texto_CrazySnake = fonte.render("-- Crazy Snake --", True, (41, 187, 6))
-texto_IniciarJogo = small_font.render(" ", True, (255,0,0) )
-
-#definir a posição do texto no centro da tela
-texto_CrazySnake_rect = texto_CrazySnake.get_rect(center=(largura // 2, altura // 2 - 100))
-texto_IniciarJogo_rect = texto_IniciarJogo.get_rect(center=(largura // 2, altura // 2 - 50))
-
 #loop
 running = True
 while running:
@@ -60,7 +52,6 @@ while running:
 
     # desenhar o fundo e a mensagem de inicio na tela
     tela.blit(fundo_imagem, (0,0))
-    tela.blit(texto_IniciarJogo, texto_IniciarJogo_rect)
     # atualizar tela
     pygame.display.flip()
 
