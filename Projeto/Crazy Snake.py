@@ -28,17 +28,19 @@ comprimentoini = 5
 velocidade = 10
 xcontrole = 20
 ycontrole = 0
+fundo_imagem = pygame.image.load("Crazy Snake.png")
+fundo_imagem2 = pygame.image.load("Crazy SnakeLost.png")
 
 
 #Fim da declaração de variáveis.
 
-tela = pygame.display.set_mode((largura, altura))
+tela = pygame.display.set_mode((largura, altura),)
 pygame.display.set_caption("Crazy Snake")
 
 #definir texto da tela de start
 small_font = pygame.font.Font(None, 30)
 texto_CrazySnake = fonte.render("-- Crazy Snake --", True, (41, 187, 6))
-texto_IniciarJogo = small_font.render("Pressione qualquer tecla para iniciar o jogo", True, (255,255,255) )
+texto_IniciarJogo = small_font.render(" ", True, (255,0,0) )
 
 #definir a posição do texto no centro da tela
 texto_CrazySnake_rect = texto_CrazySnake.get_rect(center=(largura // 2, altura // 2 - 100))
@@ -57,8 +59,7 @@ while running:
             running = False # Encerrar a tela de início se qualquer tecla for pressionada
 
     # desenhar o fundo e a mensagem de inicio na tela
-    tela.fill((0, 0, 0))
-    tela.blit(texto_CrazySnake, texto_CrazySnake_rect)
+    tela.blit(fundo_imagem, (0,0))
     tela.blit(texto_IniciarJogo, texto_IniciarJogo_rect)
     # atualizar tela
     pygame.display.flip()
@@ -113,35 +114,20 @@ while True:
 
     if x_cobra < 0 or x_cobra > largura or y_cobra < 0 or y_cobra > altura:
         while True:
-            # fontes para a tela de gameOver
-            small_font = pygame.font.Font(None, 30)
-
-            #mensagens de game over
-            game_over_text = fonte.render("Game Over", True, (41, 187, 6))
-            play_again_text = small_font.render("Pressione 'Q' para jogar novamente", True, (255, 255, 255))
-            quit_text = small_font.render("Pressione 'S' para sair", True, (255, 255, 255))
-
-            #posição das mensagens
-            game_over_text_rect = game_over_text.get_rect(center=(largura // 2, altura // 2 - 100))
-            play_again_text_rect = play_again_text.get_rect(center=(largura // 2, altura // 2 + 60))
-            quit_text_rect = quit_text.get_rect(center=(largura // 2, altura // 2 + 90))
 
             while True:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         exit()
                     elif event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_q:
+                        if event.key == pygame.K_r:
                             pass
                         elif event.key == pygame.K_s:
                             pygame.quit()
                             exit()
 
                     #exibir as mensagens na tela
-                    tela.fill((0, 0, 0))
-                    tela.blit(game_over_text, game_over_text_rect)
-                    tela.blit(play_again_text, play_again_text_rect)
-                    tela.blit(quit_text, quit_text_rect)
+                    tela.blit(fundo_imagem2, (0, 0))
 
                     pygame.display.flip()
                     pygame.display.update()
@@ -166,18 +152,6 @@ while True:
         pygame.display.flip()
         pygame.display.update()
         while True:
-            font = pygame.font.Font(None, 40)
-            small_font = pygame.font.Font(None, 30)
-
-            game_over_text = font.render("Game Over", True, (41, 187, 6))
-            play_again_text = small_font.render("Pressione 'R' para jogar novamente", True, (255, 255, 255))
-            quit_text = small_font.render("Pressione 'S' para sair", True, (255, 255, 255))
-
-            game_over_text_rect = game_over_text.get_rect(center=(largura // 2, altura // 2 - 50))
-            play_again_text_rect = play_again_text.get_rect(center=(largura // 2, altura // 2 + 50))
-            quit_text_rect = quit_text.get_rect(center=(largura // 2, altura // 2 + 100))
-
-
             while True:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -189,10 +163,8 @@ while True:
                             pygame.quit()
                             exit()
 
-                    tela.fill((0, 0, 0))
-                    tela.blit(game_over_text, game_over_text_rect)
-                    tela.blit(play_again_text, play_again_text_rect)
-                    tela.blit(quit_text, quit_text_rect)
+                    tela.blit(fundo_imagem2, (0, 0))
+                    
                     pygame.display.flip()
                     pygame.display.update()
         exit()
