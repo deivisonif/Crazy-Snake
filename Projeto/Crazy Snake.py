@@ -61,6 +61,19 @@ def aumentacobra(lista_cobra):
     for xey in lista_cobra:
         pygame.draw.rect(tela, (0, 255, 0), (xey[0], xey[1], 20, 20))
 
+def reiniciar_jogo():
+    global pontos, x_cobra, y_cobra, lista_cobra, comprimento_inicial, x_maca, y_maca, x_controle, y_controle
+    pontos = 0
+    x_cobra = largura / 2
+    y_cobra = altura / 2
+    lista_cobra = []
+    comprimento_inicial = 5
+    x_maca = randint(40, 600)
+    y_maca = randint(50, 430)
+    x_controle = 20
+    y_controle = 0
+    pygame.mixer.music.play(-1)
+
 while True:
     tela.blit(imagem_fundo, (0, 0))
     bloco_preto = pygame.draw.rect(tela, (0, 0, 0), bloco_preto)
@@ -105,23 +118,18 @@ while True:
 
     if x_cobra < 0 or x_cobra > largura or y_cobra < 0 or y_cobra > altura:
         while True:
-
-            while True:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_r:
+                        reiniciar_jogo()
+                    elif event.key == pygame.K_s:
+                        pygame.quit()
                         exit()
-                    elif event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_r:
-                            pass
-                        elif event.key == pygame.K_s:
-                            pygame.quit()
-                            exit()
-
-                    #exibir as mensagens na tela
-                    tela.blit(fundo_imagem2, (0, 0))
-
-                    pygame.display.flip()
-                    pygame.display.update()
+            tela.blit(fundo_imagem2, (0, 0))
+            pygame.display.flip()
+                
 
                     
 
@@ -143,27 +151,40 @@ while True:
         pygame.display.flip()
         pygame.display.update()
         while True:
-            while True:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_r:
+                        reiniciar_jogo()
+                    elif event.key == pygame.K_s:
+                        pygame.quit()
                         exit()
-                    elif event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_r:
-                            pass
-                        elif event.key == pygame.K_s:
-                            pygame.quit()
-                            exit()
-
-                    tela.blit(fundo_imagem2, (0, 0))
-                    
-                    pygame.display.flip()
-                    pygame.display.update()
-        exit()
+            tela.blit(fundo_imagem2, (0, 0))
+            pygame.display.flip()   
+    
 
     lista_cabeca = []
     lista_cabeca.append(x_cobra)
     lista_cabeca.append(y_cobra)
     lista_cobra.append(lista_cabeca)
+
+    if lista_cobra.count(lista_cabeca) > 1:
+        while True:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        exit()
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_r:
+                            reiniciar_jogo()
+                        elif event.key == pygame.K_s:
+                            pygame.quit()
+                            exit()
+                tela.blit(fundo_imagem2, (0, 0))
+                pygame.display.flip()
+
+
+
     if len (lista_cobra) > comprimentoini:
 
         del lista_cobra[0]
