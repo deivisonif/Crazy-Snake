@@ -2,11 +2,14 @@ import pygame
 from pygame.locals import *
 from sys import exit
 from random import randint
-
+import random
 
 pygame.init()
 
 #Declaração de variáveis em geral: 
+contador_frames = 0  # Contador de frames
+intervalo_frames = 100  # Intervalo de frames para atualizar a posição do bloco preto
+velocidade_objeto_preto = 10  # Velocidade inicial do objeto preto
 
 largura = 640
 altura = 480
@@ -26,12 +29,17 @@ pygame.mixer.music.play(-1)
 barulhocoli = pygame.mixer.Sound("smw_jump.wav")
 imagem_fundo = pygame.image.load('imagem_fundo.jpg')
 comprimentoini = 5
-velocidade = 10
 xcontrole = 20
 ycontrole = 0
-fundo_imagem = pygame.image.load("Crazy Snake.png")
-fundo_imagem2 = pygame.image.load("Crazy SnakeLost.png")
-
+fundo_imagem = pygame.image.load("imagens/Crazy Snake.png")
+fundo_imagem2 = pygame.image.load("imagens/Crazy SnakeLost.png")
+imagem_cabeca = pygame.image.load("imagens/cabeca_cobra.png")
+imagem_cabeca_cima = pygame.image.load("imagens/cabeça_cobra_cima.png")
+imagem_cabeca_baixo = pygame.image.load("imagens/cabeça_cobra_baixo.png")
+imagem_cabeca_esquerda = pygame.image.load("imagens/cabeça_cobra_esquerda.png")
+imagem_cabeca_direita = pygame.image.load("imagens/cabeça_cobra_direita.png")
+imagem_bloco_preto = pygame.image.load("imagens/imagem_bloco_preto.png")
+imagem_maça = pygame.image.load("imagens/imagem_maça.png")
 
 #Fim da declaração de variáveis.
 
@@ -49,11 +57,25 @@ while running:
             exit()
         elif event.type == pygame.KEYDOWN:
             running = False # Encerrar a tela de início se qualquer tecla for pressionada
-
+    velocidade = 9 + pontos // 1
     # desenhar o fundo e a mensagem de inicio na tela
     tela.blit(fundo_imagem, (0,0))
     # atualizar tela
     pygame.display.flip()
+    
+    contador_frames += 1
+    if contador_frames >= intervalo_frames:
+        contador_frames = 0
+
+    x_bloco_preto += velocidade_objeto_preto
+    y_bloco_preto += velocidade_objeto_preto
+
+    # Verificar se o objeto preto atingiu as bordas da tela
+    if x_bloco_preto < 0 or x_bloco_preto > largura - 20:
+        velocidade_objeto_preto *= -1  # Inverter a direção do movimento
+    if y_bloco_preto < 0 or y_bloco_preto > altura - 20:
+        velocidade_objeto_preto *= -1  # Inverter a direção do movimento
+
 
 relogio = pygame.time.Clock()
 lista_cobra = []
@@ -76,7 +98,8 @@ def reiniciar_jogo():
 
 while True:
     tela.blit(imagem_fundo, (0, 0))
-    bloco_preto = pygame.draw.rect(tela, (0, 0, 0), bloco_preto)
+    tela.blit(imagem_bloco_preto, (x_bloco_preto, y_bloco_preto))
+    tela.blit(imagem_maça, (x_maca, y_maca))
     relogio.tick(100)
     tela.fill((255,255,255))
     tela.blit(imagem_fundo, (0, 0))
@@ -116,6 +139,16 @@ while True:
     x_cobra = x_cobra + (xcontrole/10)
     y_cobra = y_cobra + (ycontrole/10)
 
+    if xcontrole == 0 and ycontrole < 0:
+        imagem_cabeca = imagem_cabeca_cima
+    elif xcontrole == 0 and ycontrole > 0:
+        imagem_cabeca = imagem_cabeca_baixo
+    elif xcontrole < 0 and ycontrole == 0:
+        imagem_cabeca = imagem_cabeca_esquerda
+    elif xcontrole > 0 and ycontrole == 0:
+        imagem_cabeca = imagem_cabeca_direita
+
+
     if x_cobra < 0 or x_cobra > largura or y_cobra < 0 or y_cobra > altura:
         while True:
             for event in pygame.event.get():
@@ -132,10 +165,9 @@ while True:
                 
 
                     
-
     cobra = pygame.draw.rect(tela, (0, 255, 0), (x_cobra, y_cobra, 20, 20))
-    maca = pygame.draw.rect(tela, (255, 0, 0), (x_maca, y_maca, 20, 20))
-    bloco = pygame.draw.rect(tela, (0, 0, 0), bloco_preto)
+    maca = tela.blit(imagem_maça, (x_maca, y_maca))
+    bloco = tela.blit(imagem_bloco_preto, (x_bloco_preto, y_bloco_preto))
 
     if cobra.colliderect(maca):
         x_maca = randint(40, 600)
@@ -162,7 +194,7 @@ while True:
                         exit()
             tela.blit(fundo_imagem2, (0, 0))
             pygame.display.flip()   
-    
+
 
     lista_cabeca = []
     lista_cabeca.append(x_cobra)
@@ -182,8 +214,7 @@ while True:
                             exit()
                 tela.blit(fundo_imagem2, (0, 0))
                 pygame.display.flip()
-
-
+                    
 
     if len (lista_cobra) > comprimentoini:
 
@@ -191,4 +222,11 @@ while True:
            
     aumentacobra (lista_cobra)
     tela.blit(texto_formatado, (420, 40))
+    tela.blit(imagem_cabeca, (x_cobra, y_cobra))
+
+    if random.random() < 0.01:  # Ajuste a probabilidade conforme necessário
+        x_bloco_preto = random.randint(40, 600)
+        y_bloco_preto = random.randint(50, 430)
+        bloco_preto = pygame.Rect(x_bloco_preto, y_bloco_preto, 20, 20)
+
     pygame.display.update()
