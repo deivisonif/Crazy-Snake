@@ -7,32 +7,40 @@ import random
 pygame.init()
 
 #Declaração de variáveis em geral: 
-contador_frames = 0  # Contador de frames
-intervalo_frames = 100  # Intervalo de frames para atualizar a posição do bloco preto
-velocidade_objeto_preto = 10  # Velocidade inicial do objeto preto
 
 largura = 640
 altura = 480
 
 x_cobra = largura/2
 y_cobra = altura/2
+
 x_maca = randint(40, 600)
 y_maca = randint(50, 430)
-fonte = pygame.font.SysFont("Arial", 40, True, False)
-pontos = 0
+
 x_bloco_preto = randint(40, 600)
 y_bloco_preto = randint(50, 430)
 bloco_preto = pygame.Rect(x_bloco_preto, y_bloco_preto, 20, 20)  # Adicione essa linha
+
+comprimentoini = 5
+
+xcontrole = 20
+ycontrole = 0
+pontos = 0
+
+fonte = pygame.font.SysFont("Arial", 40, True, False)
+
+contador_frames = 0  # Contador de frames
+intervalo_frames = 100  # Intervalo de frames para atualizar a posição do bloco preto
+velocidade_objeto_preto = 10  # Velocidade inicial do objeto preto
+
 pygame.mixer.music.set_volume(0.2)
 musicafundo = pygame.mixer.music.load("smw_castle_clear.wav")
 pygame.mixer.music.play(-1)
 barulhocoli = pygame.mixer.Sound("smw_jump.wav")
-imagem_fundo = pygame.image.load('imagem_fundo.jpg')
-comprimentoini = 5
-xcontrole = 20
-ycontrole = 0
-fundo_imagem = pygame.image.load("imagens/Crazy Snake.png")
-fundo_imagem2 = pygame.image.load("imagens/Crazy SnakeLost.png")
+
+fundo_jogo_imagem = pygame.image.load('imagens/fundo_jogo.jpg')
+tela_inicial_imagem = pygame.image.load("imagens/tela_inicial_crazy_snake.png")
+fundo_lost_imagem = pygame.image.load("imagens/tela_lost_crazy_snake.png")
 imagem_cabeca = pygame.image.load("imagens/cabeca_cobra.png")
 imagem_cabeca_cima = pygame.image.load("imagens/cabeça_cobra_cima.png")
 imagem_cabeca_baixo = pygame.image.load("imagens/cabeça_cobra_baixo.png")
@@ -59,7 +67,7 @@ while running:
             running = False # Encerrar a tela de início se qualquer tecla for pressionada
     velocidade = 9 + pontos // 1
     # desenhar o fundo e a mensagem de inicio na tela
-    tela.blit(fundo_imagem, (0,0))
+    tela.blit(tela_inicial_imagem, (0,0))
     # atualizar tela
     pygame.display.flip()
     
@@ -97,12 +105,12 @@ def reiniciar_jogo():
     pygame.mixer.music.play(-1)
 
 while True:
-    tela.blit(imagem_fundo, (0, 0))
+    tela.blit(fundo_jogo_imagem, (0, 0))
     tela.blit(imagem_bloco_preto, (x_bloco_preto, y_bloco_preto))
     tela.blit(imagem_maça, (x_maca, y_maca))
     relogio.tick(100)
     tela.fill((255,255,255))
-    tela.blit(imagem_fundo, (0, 0))
+    tela.blit(fundo_jogo_imagem, (0, 0))
     mensagem = f"Pontos: {pontos}"
     texto_formatado = fonte.render(mensagem, True, (255, 255, 255))
     for event in pygame.event.get():
@@ -160,7 +168,7 @@ while True:
                     elif event.key == pygame.K_s:
                         pygame.quit()
                         exit()
-            tela.blit(fundo_imagem2, (0, 0))
+            tela.blit(fundo_lost_imagem, (0, 0))
             pygame.display.flip()
                 
 
@@ -192,7 +200,7 @@ while True:
                     elif event.key == pygame.K_s:
                         pygame.quit()
                         exit()
-            tela.blit(fundo_imagem2, (0, 0))
+            tela.blit(fundo_lost_imagem, (0, 0))
             pygame.display.flip()   
 
 
@@ -212,7 +220,7 @@ while True:
                         elif event.key == pygame.K_s:
                             pygame.quit()
                             exit()
-                tela.blit(fundo_imagem2, (0, 0))
+                tela.blit(fundo_lost_imagem, (0, 0))
                 pygame.display.flip()
                     
 
