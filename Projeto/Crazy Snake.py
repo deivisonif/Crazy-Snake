@@ -104,6 +104,7 @@ def reiniciar_jogo():
     y_controle = 0
     pygame.mixer.music.play(-1)
 
+jogo_iniciado = False
 while True:
     tela.blit(fundo_jogo_imagem, (0, 0))
     tela.blit(imagem_bloco_preto, (x_bloco_preto, y_bloco_preto))
