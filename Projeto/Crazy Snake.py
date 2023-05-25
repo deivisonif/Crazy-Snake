@@ -28,6 +28,8 @@ ycontrole = 0
 pontos = 0
 
 fonte = pygame.font.SysFont("Arial", 40, True, False)
+fonte1 = pygame.font.SysFont("Arial", 40, False, False)
+
 
 contador_frames = 0  # Contador de frames
 intervalo_frames = 100  # Intervalo de frames para atualizar a posição do bloco preto
@@ -91,6 +93,16 @@ def aumentacobra(lista_cobra):
     for xey in lista_cobra:
         pygame.draw.rect(tela, (0, 255, 0), (xey[0], xey[1], 20, 20))
 
+def exibir_pontuacao_final(pontos):
+    mensagem_final = f"Sua pontuação final: {pontos}"
+    texto_final = fonte1.render(mensagem_final, True, (255, 255, 255))
+    posicao_x = largura - texto_final.get_width() - 20  # Posição horizontal no canto superior direito
+    posicao_y = 20  # Posição vertical no canto superior direito
+    tela.blit(texto_final, (posicao_x, posicao_y))
+    pygame.display.flip()
+
+
+
 def reiniciar_jogo():
     global pontos, x_cobra, y_cobra, lista_cobra, comprimento_inicial, x_maca, y_maca, x_controle, y_controle
     pontos = 0
@@ -104,7 +116,6 @@ def reiniciar_jogo():
     y_controle = 0
     pygame.mixer.music.play(-1)
 
-jogo_iniciado = False
 while True:
     tela.blit(fundo_jogo_imagem, (0, 0))
     tela.blit(imagem_bloco_preto, (x_bloco_preto, y_bloco_preto))
@@ -170,6 +181,7 @@ while True:
                         pygame.quit()
                         exit()
             tela.blit(fundo_lost_imagem, (0, 0))
+            exibir_pontuacao_final(pontos)
             pygame.display.flip()
                 
 
@@ -202,6 +214,7 @@ while True:
                         pygame.quit()
                         exit()
             tela.blit(fundo_lost_imagem, (0, 0))
+            exibir_pontuacao_final(pontos)
             pygame.display.flip()   
 
 
@@ -222,6 +235,7 @@ while True:
                             pygame.quit()
                             exit()
                 tela.blit(fundo_lost_imagem, (0, 0))
+                exibir_pontuacao_final(pontos)
                 pygame.display.flip()
                     
 
