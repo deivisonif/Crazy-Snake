@@ -5,6 +5,7 @@ from random import randint
 import random
 
 pygame.init()
+
 #Declaração de variáveis em geral: 
 
 largura = 640
@@ -95,8 +96,8 @@ def aumentacobra(lista_cobra):
 def exibir_pontuacao_final(pontos):
     mensagem_final = f"Sua pontuação final: {pontos}"
     texto_final = fonte1.render(mensagem_final, True, (255, 255, 255))
-    posicao_x = largura - texto_final.get_width() - 20  # Posição horizontal no canto superior direito
-    posicao_y = 20  # Posição vertical no canto superior direito
+    posicao_x = largura - texto_final.get_width() - 20  
+    posicao_y = 20  
     tela.blit(texto_final, (posicao_x, posicao_y))
     pygame.display.flip()
 
@@ -110,7 +111,7 @@ def reset_jogo():
 
     x_bloco_preto = randint(40, 600)
     y_bloco_preto = randint(50, 430)
-    bloco_preto = pygame.Rect(x_bloco_preto, y_bloco_preto, 20, 20)  # Adicione essa linha
+    bloco_preto = pygame.Rect(x_bloco_preto, y_bloco_preto, 20, 20)  
 
     comprimentoini = 5
 
@@ -120,9 +121,9 @@ def reset_jogo():
     telainicial()
     relogio = pygame.time.Clock()
     lista_cobra = []
-    jogo()
+    executar()
 
-def jogo():
+def executar():
     global x_bloco_preto, y_bloco_preto, bloco_preto, x_maca, y_maca, pontos, x_cobra, y_cobra, xcontrole, ycontrole, comprimentoini
 
     while True:
@@ -256,7 +257,7 @@ def jogo():
         tela.blit(texto_formatado, (420, 40))
         tela.blit(imagem_cabeca, (x_cobra, y_cobra))
 
-        if random.random() < 0.01:  # Ajuste a probabilidade conforme necessário
+        if random.random() < 0.01:  
             x_bloco_preto = random.randint(40, 600)
             y_bloco_preto = random.randint(50, 430)
             bloco_preto = pygame.Rect(x_bloco_preto, y_bloco_preto, 20, 20)
@@ -266,4 +267,4 @@ def jogo():
 telainicial()
 relogio = pygame.time.Clock()
 lista_cobra = []
-jogo()
+executar()
