@@ -100,6 +100,28 @@ def exibir_pontuacao_final(pontos):
     tela.blit(texto_final, (posicao_x, posicao_y))
     pygame.display.flip()
 
+def reset_jogo():
+    global x_cobra, y_cobra, y_maca, x_maca, x_bloco_preto, y_bloco_preto, bloco_preto, comprimentoini, xcontrole, ycontrole, pontos, relogio, lista_cobra
+    x_cobra = largura/2
+    y_cobra = altura/2
+
+    x_maca = randint(40, 600)
+    y_maca = randint(50, 430)
+
+    x_bloco_preto = randint(40, 600)
+    y_bloco_preto = randint(50, 430)
+    bloco_preto = pygame.Rect(x_bloco_preto, y_bloco_preto, 20, 20)  # Adicione essa linha
+
+    comprimentoini = 5
+
+    xcontrole = 20
+    ycontrole = 0
+    pontos = 0
+    telainicial()
+    relogio = pygame.time.Clock()
+    lista_cobra = []
+    jogo()
+
 def jogo():
     global x_bloco_preto, y_bloco_preto, bloco_preto, x_maca, y_maca, pontos, x_cobra, y_cobra, xcontrole, ycontrole, comprimentoini
 
@@ -162,9 +184,8 @@ def jogo():
                     if event.type == pygame.QUIT:
                         exit()
                     elif event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_r and game_over:
+                        if event.key == pygame.K_r:
                             reset_jogo()
-                            game_over = False
                         elif event.key == pygame.K_s:
                             pygame.quit()
                             exit()
@@ -196,9 +217,8 @@ def jogo():
                     if event.type == pygame.QUIT:
                         exit()
                     elif event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_r and game_over:
+                        if event.key == pygame.K_r:
                             reset_jogo()
-                            game_over = False
                         elif event.key == pygame.K_s:
                             pygame.quit()
                             exit()
@@ -218,9 +238,8 @@ def jogo():
                         if event.type == pygame.QUIT:
                             exit()
                         elif event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_r and game_over:
+                            if event.key == pygame.K_r:
                                 reset_jogo()
-                                game_over = False
                             elif event.key == pygame.K_s:
                                 pygame.quit()
                                 exit()
